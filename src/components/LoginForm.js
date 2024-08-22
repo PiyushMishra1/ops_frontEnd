@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import UserData from "../Api/UserData";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  const navigate = useNavigate();
   // Fetch data from the API using async/await
   const fetch = async (data) => {
     try {
@@ -13,6 +14,7 @@ const LoginPage = () => {
       const result = response.message;
       if (result == "Login Successful") {
         toast.success(result);
+        navigate("/");
       } else {
         toast.error(result);
       }
