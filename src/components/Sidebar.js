@@ -1,57 +1,60 @@
 import React from "react";
 
-const Sidebar = () => {
+const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
   return (
-    <div className="flex flex-col h-screen w-64 bg-gray-800 text-white">
-      {/* Logo */}
-      <div className="flex items-center justify-center h-16 bg-gray-900">
-        <span className="text-2xl font-bold">Resume.io</span>
-      </div>
-
-      {/* Navigation Links */}
-      <nav className="flex-grow">
-        <ul className="px-4 py-4">
-          <SidebarLink icon={<HomeIcon />} text="Home" to="/" />
-          <SidebarLink
-            icon={<AnalyticsIcon />}
-            text="Analytics"
-            to="/analytics"
-          />
-          <SidebarLink icon={<UsersIcon />} text="Users" to="/users" />
-          <SidebarLink icon={<SettingsIcon />} text="Settings" to="/settings" />
-        </ul>
-      </nav>
-
-      {/* User Profile */}
-      <div className="p-4 bg-gray-700">
-        <div className="flex items-center mb-4">
-          <div className="w-8 h-8 rounded-full bg-gray-500 mr-3"></div>
-          <span className="font-medium">John Doe</span>
-        </div>
-        <button className="flex items-center text-sm text-gray-400 hover:text-white transition-colors duration-200">
-          <LogoutIcon />
-          <span className="ml-2">Logout</span>
+    <aside
+      className={`
+        fixed top-0 left-0 z-30 h-screen w-64 bg-gray-900 text-white transition-all duration-300 ease-in-out
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+        lg:translate-x-0 lg:static lg:z-auto
+      `}
+    >
+      <div className="flex items-center justify-between h-16 px-4 border-b border-gray-700">
+        <span className="text-xl font-semibold">Resume.io</span>
+        <button
+          onClick={toggleSidebar}
+          className="text-gray-400 hover:text-white lg:hidden"
+        >
+          <CloseIcon />
         </button>
       </div>
-    </div>
+      <nav className="flex-1 px-2 py-4 space-y-2 overflow-y-auto">
+        <SidebarItem href="/" icon={<HomeIcon />} text="Home" />
+        <SidebarItem href="#" icon={<AnalyticsIcon />} text="Analytics" />
+        <SidebarItem href="#" icon={<UsersIcon />} text="Users" />
+        <SidebarItem href="#" icon={<SettingsIcon />} text="Settings" />
+      </nav>
+    </aside>
   );
 };
 
-const SidebarLink = ({ icon, text, to }) => {
-  return (
-    <li className="mb-2">
-      <a
-        href={to}
-        className="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded transition-colors duration-200"
-      >
-        {icon}
-        <span className="ml-3">{text}</span>
-      </a>
-    </li>
-  );
-};
+const SidebarItem = ({ href, icon, text }) => (
+  <a
+    href={href}
+    className="flex items-center space-x-2 p-2 hover:bg-gray-700 rounded"
+  >
+    {icon}
+    <span>{text}</span>
+  </a>
+);
 
-// Simple SVG icons
+const CloseIcon = () => (
+  <svg
+    className="w-6 h-6"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M6 18L18 6M6 6l12 12"
+    />
+  </svg>
+);
+
 const HomeIcon = () => (
   <svg
     className="w-5 h-5"
@@ -122,23 +125,6 @@ const SettingsIcon = () => (
       strokeLinejoin="round"
       strokeWidth={2}
       d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-    />
-  </svg>
-);
-
-const LogoutIcon = () => (
-  <svg
-    className="w-4 h-4"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
     />
   </svg>
 );
