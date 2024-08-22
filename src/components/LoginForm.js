@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import UserData from "../Api/UserData";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-const LoginPage = () => {
+const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,6 +14,7 @@ const LoginPage = () => {
       const result = response.message;
       if (result == "Login Successful") {
         toast.success(result);
+        onLogin();
         navigate("/");
       } else {
         toast.error(result);
