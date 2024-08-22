@@ -26,8 +26,6 @@ const LoginPage = () => {
 
   const handleEmail = (e) => {
     const input_value = e.target.value;
-
-    // Validate email format
     const isValidEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
       input_value
     );
@@ -37,28 +35,25 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission, e.g.,
-    if (email != "" && password != "") {
+    if (email !== "" && password !== "") {
       const data = {
         email: email,
         password: password,
       };
-      fetch(data);
+      fetch(data); // Call your fetch function here
     } else {
       toast.error("Please enter all fields");
     }
   };
-
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex flex-wrap">
       {/* Left Pane */}
-      <Toaster />
-      <div className="w-1/2 bg-gray-800 text-white flex justify-center items-center">
-        <h1 className="text-4xl font-bold">Ops. Panel</h1>
+      <div className="w-full md:w-1/2 bg-gray-800 text-white flex justify-center items-center">
+        <h1 className="text-4xl font-bold">Resume.io Panel</h1>
       </div>
 
       {/* Right Pane */}
-      <div className="w-1/2 bg-white flex justify-center items-center">
+      <div className="w-full md:w-1/2 bg-white flex justify-center items-center">
         <div className="w-full max-w-md p-8">
           <h2 className="text-2xl font-bold mb-6 text-gray-800">Login</h2>
           <form onSubmit={handleSubmit}>
@@ -106,6 +101,7 @@ const LoginPage = () => {
           </form>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
