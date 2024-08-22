@@ -25,11 +25,14 @@ const LoginPage = () => {
   };
 
   const handleEmail = (e) => {
-    setEmail(e.target.value);
+    const input_value = e.target.value;
 
     // Validate email format
-    const isValidEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
+    const isValidEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+      input_value
+    );
     setError(isValidEmail ? "" : "Please enter a valid email address");
+    setEmail(input_value);
   };
 
   const handleSubmit = (e) => {
