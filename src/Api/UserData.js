@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const UserData = async (data) => {
-  const url = `https://opsserver-production.up.railway.app/`;
+  const url = `https://opsserver-production.up.railway.app/login`;
   try {
     const response = await axios.post(url, data);
     console.log("Response:", response.data);
