@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import UserData from "../Api/UserData";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../AppContext";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      navigate("/");
+    }
+  }, []);
   // Fetch data from the API using async/await
   const fetch = async (data) => {
     try {
@@ -15,6 +22,7 @@ const LoginPage = () => {
       if (result == "Login Successful") {
         toast.success(result);
 
+        localStorage.setItem("user", response.token);
         navigate("/");
       } else {
         toast.error(result);

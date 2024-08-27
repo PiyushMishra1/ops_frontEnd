@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
+  const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false);
+
+  const toggleJobsDropdown = () => {
+    setJobsDropdownOpen(!jobsDropdownOpen);
+  };
+
   return (
     <aside
       className={`
@@ -20,7 +26,25 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
       </div>
       <nav className="flex-1 px-2 py-4 space-y-2 overflow-y-auto">
         <SidebarItem href="/" icon={<HomeIcon />} text="Home" />
-        <SidebarItem href="#" icon={<AnalyticsIcon />} text="Analytics" />
+        <div>
+          <button
+            onClick={toggleJobsDropdown}
+            className="flex items-center justify-between w-full p-2 hover:bg-gray-700 rounded"
+          >
+            <div className="flex items-center space-x-2">
+              <AnalyticsIcon />
+              <span>Jobs</span>
+            </div>
+            {jobsDropdownOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
+          </button>
+          {jobsDropdownOpen && (
+            <div className="pl-4 mt-2 space-y-2">
+              <SidebarItem href="/jobs/create" text="Create Job" />
+              <SidebarItem href="/jobs/view" text="View Jobs" />
+              <SidebarItem href="/jobs/applications" text="Applications" />
+            </div>
+          )}
+        </div>
         <SidebarItem href="#" icon={<UsersIcon />} text="Users" />
         <SidebarItem href="#" icon={<SettingsIcon />} text="Settings" />
       </nav>
@@ -125,6 +149,40 @@ const SettingsIcon = () => (
       strokeLinejoin="round"
       strokeWidth={2}
       d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+    />
+  </svg>
+);
+
+const ChevronDownIcon = () => (
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M19 9l-7 7-7-7"
+    />
+  </svg>
+);
+
+const ChevronUpIcon = () => (
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M5 15l7-7 7 7"
     />
   </svg>
 );
